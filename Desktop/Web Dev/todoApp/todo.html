@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Todo App</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/stylesheet.css">
+</head>
+<body>
+	
+	<div class="container">
+
+		<h1>Todo App</h1>
+		
+		<h2>Lists:</h2>
+		
+<ul id="all-lists" class="all-lists">
+
+</ul>
+		<label for="new-list-name">New List:</label>
+		<input type="text" id="new-list-name">
+		<button id="add-list">Add List</button>
+
+		<br>
+
+		<button id="save">Save</button>
+
+	</div>
+
+
+
+
+<script>
+
+var todoLists = {};
+
+// check if their browser supports local storage
+if (localStorage && localStorage.todoLists) {
+	todoLists = JSON.parse(localStorage.todoLists);
+}
+
+
+	
+
+function loadTodoLists() {
+	var allLists = document.getElementById("all-lists");
+	for (var listName in todoLists) {
+		// create the list item for the todo list
+		var listItem = document.createElement("li");
+
+		// add a heading for the todo list
+		var heading = document.createElement("h3");
+		heading.textContent = listName
+		listItem.appendChild(heading);
+
+		// create the HTML list that will contain the todo list items
+		var list = document.createElement("ul");
+		list.id = "list-" + listName;
+		
+		// get all of the items for the list
+		var currList = todoLists[listName];
+
+		// we will do the following for each item in `currList`:
+		for (var i = 0; i < currList.length; i++) {
+			// create an HTML li element for it
+			var itemNode = document.createElement("li");
+
+			// create a checkbox
+			var checkbox = document.createElement("input");
+			checkbox.type = "checkbox";
+			checkbox.className = "todo-checkbox";
+
+			// set the "checked" property of the checkbox if the item has been completed
+			if (currList[i][1]) checkbox.checked = "true"; // it doesn't really matter what this is set to
+
+			// add the checkbox to `itemNode`
+			itemNode.appendChild(checkbox);
+
+			// add the text to the HTML li element
+			var textNode = document.createTextNode(currList[i][0]);
+			itemNode.appendChild(textNode);
+
+			// and finally, append the new item to the HTML list
+			list.appendChild(itemNode);
+			addClickListenToCheckbox(checkbox);
+		}
+
+		list.appendChild(createAddMoreItem());
+
+		
+		
+		listItem.appendChild(list);
+
+		allLists.appendChild(listItem);
+
+
+	}
+}
+
+loadTodoLists();
+
+
+	function addClickListenerToListItem(item) {
+	item.addEventListener("click", function() {
+		var parentList = item.parentNode.parentNode;
+		var ids = parentList.id.split(" ");
+		var listId = undefined;
+
+		for (var i = 0; i < ids.length; i++) {
+			if (ids[i].substring(0, 5) === "list-") {
+				listId = ids[i].substring(5);
+				break;
+			}
+		}
+
+		if (!listId) {
+			alert("An error occured.");
+			return;
+		}
+
+		var title = item.parentNode.childNodes[0].value
+		var newItem = createTodoListItem(title);
+
+		parentList.insertBefore(newItem, item.parentNode);
+
+		todoLists[listId].push([title, false]);
+	});
+}
+
+function createAddMoreItem() {
+	var addMoreListItem = document.createElement("li");
+	var inputNode = document.createElement("input");
+	inputNode.type = "text";
+	var button = document.createElement("button");
+	button.id = "add-item";
+	button.className = "add-item";
+	button.textContent = "Add Item";
+
+	addMoreListItem.appendChild(inputNode);
+	addMoreListItem.appendChild(button);
+
+	// this is the line you need to add:
+	addClickListenerToListItem(button);
+
+	return addMoreListItem;
+}
+
+function createTodoListItem(title) {
+	var newItem = document.createElement("li");
+
+	var checkbox = document.createElement("input");
+	checkbox.type = "checkbox";
+	checkbox.className = "todo-checkbox";
+	newItem.appendChild(checkbox);
+
+	var textNode = document.createTextNode(title);
+	newItem.appendChild(textNode);
+
+	return newItem;
+}
+	
+document.getElementById("save").addEventListener("click", function() {
+	localStorage.todoLists = JSON.stringify(todoLists);
+});
+
+document.getElementById("add-list").addEventListener("click", function() {
+	var input = document.getElementById("new-list-name");
+	var listName = input.value;
+	var listId = "list-" + listName;
+
+	var mainListItem = document.createElement("li");
+
+	var heading = document.createElement("h3");
+	heading.textContent = listName;
+	mainListItem.appendChild(heading);
+
+	var list = document.createElement("ul");
+	list.id = listId;
+
+	var addMoreListItem = createAddMoreItem();
+
+	list.appendChild(addMoreListItem);
+
+	mainListItem.appendChild(list);
+
+	document.getElementById("all-lists").appendChild(mainListItem);
+
+	todoLists[listName] = [];
+
+	input.value = "";
+});
+
+function addClickListenToCheckbox(item) {
+	item.addEventListener("change", function() {
+		var parentList = item.parentNode.parentNode;
+		var ids = parentList.id.split(" ");
+		var listId = undefined;
+
+		for (var i = 0; i < ids.length; i++) {
+			if (ids[i].substring(0, 5) === "list-") {
+				listId = ids[i].substring(5);
+				break;
+			}
+		}
+
+		if (!listId) {
+			alert("An error occured.");
+			return;
+		}
+
+		for (var i = 0; i < todoLists[listId].length; i++) {
+			if (item.parentNode.textContent == todoLists[listId][i][0]) {
+				todoLists[listId][i][1] = item.checked;
+				break;
+			}
+		}
+
+	});
+}
+
+
+</script>
+</body>
+</html>

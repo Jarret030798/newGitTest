@@ -1,0 +1,47 @@
+
+body {
+	background-color: black;
+	font-family: 'comic-sans';
+}
+
+
+.container {
+	padding: 10px;
+	background-color: #586170;
+	color: #ffffff;
+}
+
+h1, h2, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+	margin: 1em 0;
+}
+
+h1{ 
+	font-size:2.5em; 
+}
+h2{ 
+	font-size:2em; 
+}
+h3{ 
+	font-size:1.5em; 
+}
+h4{ 
+	font-size:1.2em; 
+}
+h5{ 
+	font-size:1em;
+}
+h6{ 
+	font-size:0.9em; 
+}
+
+input[type=text] {
+	margin: 6px 0;
+}
+
+input[type=checkbox] {
+	margin: 4px 0;
+	margin-right: 4px;
+}
+
+

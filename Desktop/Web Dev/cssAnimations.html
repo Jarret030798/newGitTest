@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>cssAnimations</title>
+
+	<style type="text/css">
+		
+		body {
+			animation-duration: 0.3s;
+			animation-name: fade;
+			background-color: red;
+			animation-iteration-count: infinite;
+ 			animation-delay: 0s;
+ 			color: blue;
+		}
+
+		@keyframes fade {
+			from {
+				background-color: blue;
+				color: red;
+			}
+			to {
+				background-color: red;
+				color: blue;
+			}
+			
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 100px;
+			margin-top: 1em;
+		}
+		
+		@keyframes loopColors{
+			0% {
+				background-color: blue;
+			}
+			1% {
+				background-color: red;
+			}
+			99% {
+				background-color: red;
+			}
+			100% {
+				background-color: blue;
+			}
+		}
+
+		canvas {
+			border: 1px, black;
+		}
+	</style>
+</head>
+	<body>
+		
+		<h1>Jarret!</h1>
+		<canvas width="256" height="256"> 
+		
+		</canvas>
+
+
+	</body>
+</html>
+
+
+
+

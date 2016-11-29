@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Never Gonna give you up</title>
+</head>
+<body>
+
+	<canvas id="dots" width="500" height="500"></canvas>
+
+<script type="text/javascript">
+
+
+var img = new Image();
+img.src = "http://i.huffpost.com/gen/1840218/thumbs/o-PUNCH-EMOJI-570.jpg?5";
+
+
+
+
+
+	
+	var canvas = document.getElementById("dots")
+		width = canvas.width,
+		height = canvas.height,
+		ctx = canvas.getContext("2d"),
+		spawnPoint = { x: width / 2, y: height },
+		maxPoints = 100,
+		gravity = 0.1,
+		points = [];
+
+	function initPoint(p) {
+		p.x = spawnPoint.x;
+		p.y = spawnPoint.y;
+		p.vx = Math.random() * 10 - 2;
+		p.vy = Math.random() * -10 + 1;
+		p.radius = Math.random() * 4 + 1;
+ 	}
+
+ 	function addPoint() {
+ 		if (points.length < maxPoints) {
+ 			var point = {};
+ 			initPoint(point);
+ 			points.push(point);
+ 		}
+ 	}
+
+ 	function draw() {
+ 		var point;
+ 		ctx.clearRect(0, 0, width, height);
+ 		ctx.drawImage(img, -25, 0);
+ 		for (var i = 0; i < points.length; i++) {
+ 			point = points[i];
+ 			ctx.beginPath();
+ 			ctx.arc(point.x, point.y, point.radius, 0, Math.PI * 2, false);
+ 			ctx.fillStyle = "blue";
+ 			ctx.fill();
+  		}
+ 	}
+
+ 	function movePoints() {
+ 		var point;
+ 		for (var i = 0; i < points.length; i++) {
+ 			point = points[i];
+ 			point.vy += gravity;
+ 			point.x += point.vx;
+ 			point.y += point.vy;
+ 			if (point.x > width || point.x < 0 || point.y > height || point.y < 0) {
+ 				initPoint(point);
+ 			}
+ 		}
+ 	}
+
+ 	function update() {
+		addPoint();
+		movePoints();
+		draw();
+		requestAnimationFrame(update);
+	}
+
+	requestAnimationFrame(update);
+</script>
+</body>
+</html>

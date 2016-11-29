@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Canvas</title>
+
+	
+	<style type="text/css">
+		#my-canvas {
+	border: 1px solid black;
+	
+	
+}
+
+	</style>
+
+</head>
+<body>
+
+<canvas width="1000" height="1000" id="my-canvas"></canvas>
+
+<script>
+	
+	var ctx = document.getElementById("my-canvas").getContext("2d");
+for (var i = 0; i < 25; i++){
+	for (var j = 0; j < 25; j++){
+		ctx.strokeStyle = "rgb(0, " + Math.floor(255 - 12.7 * i) + ", " + 
+	 	Math.floor(255 - 12.7 * j) + ")";
+		ctx.beginPath();
+		ctx.lineWidth = 50
+		ctx.arc(12.5 + j * 25, 12.5 + i * 25, 10, 0, Math.PI * 2, true);
+		ctx.stroke();
+	}
+}
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Todo App</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/stylesheet.css">
+</head>
+<body>
+	
+	<div class="container">
+
+		<h1>Todo App</h1>
+		
+		<h2>Lists:</h2>
+		
+<li>
+	<h3>Groceries:</h3>
+	<ul>
+		<li>
+		<input type="checkbox" class="todo-checkbox">
+			Tomato
+		</li>
+		<li>
+			<input type="checkbox" class="todo-checkbox">
+			Bagels
+		</li>
+		<li>
+			<input type="text">
+			<button class="add-item">Add Item</button>
+		</li>
+	</ul>
+</li>
+<li>
+	<h3>Languages To Learn</h3>
+	<ul>
+		<li>
+			<input type="checkbox" class="todo-checkbox">
+			Ruby
+		</li>
+		<li>
+			<input type="checkbox" class="todo-checkbox">
+			Swift
+		</li>
+		<li>
+			<input type="checkbox" class="todo-checkbox">
+			JavaScript
+		</li>
+		<li>
+			<input type="text">
+			<button class="add-item">Add Item</button>
+		</li>
+	</ul>
+</li>
+
+		<label for="new-list-name">New List:</label>
+		<input type="text" id="new-list-name">
+		<button id="add-list">Add List</button>
+
+		<br>
+
+		<button id="save">Save</button>
+
+	</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
